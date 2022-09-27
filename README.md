@@ -2,6 +2,8 @@ Book record management API for managin records and books like in a library
 
 ## Routes and Endpoints
 
+NOTE: Dates will be in the format mm/dd/yyyy
+
 ##API documentation link
 https://documenter.getpostman.com/view/18708667/2s83RwkG9p
 
