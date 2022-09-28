@@ -1,10 +1,18 @@
 const express = require("express");
+const dotenv = require("dotenv");
+
+//DB Connection
+const DbConnection = require("./databaseConnection");
 
 //importing routes
 const userRouter = require("./Routes/users");
 const booksRouter = require("./Routes/books");
 
+dotenv.config();
+
 const app = express();
+
+DbConnection();
 
 const PORT = 8081;
 
@@ -16,8 +24,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use('/users', userRouter)
-app.use('/books', booksRouter)
+app.use("/users", userRouter);
+app.use("/books", booksRouter);
 
 app.get("*", (req, res) => {
   res.status(404).json({
@@ -26,5 +34,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running at port ${PORT}`);
+  console.log(`Server is running at port ${PORT} ...`);
 });
