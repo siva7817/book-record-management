@@ -57,4 +57,51 @@ const getAllIssuedBooks = async (req, res) => {
   });
 };
 
-module.exports = { getAllBooks, getSingleBookById, getAllIssuedBooks };
+const addNewBook = async (req, res) => {
+  const { data } = req.body;
+
+  if (!data) {
+    return res.status(404).json({
+      status: "failed",
+      message: "No data provided",
+    });
+  }
+
+  await bookModel.create(data);
+
+  const allBooks = await bookModel.find();
+
+  return res.status(201).json({
+    status: "success",
+    data: allBooks,
+  });
+};
+
+const updateBookById = async (req, res) => {
+  const { id } = req.params;
+
+  const { data } = req.body;
+
+  const updatedBook = await bookModel.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    data,
+    {
+      new: true,
+    }
+  );
+
+  return res.status(404).json({
+    status: "Success",
+    data: updatedBook,
+  });
+};
+
+module.exports = {
+  getAllBooks,
+  getSingleBookById,
+  getAllIssuedBooks,
+  addNewBook,
+  updateBookById,
+};
